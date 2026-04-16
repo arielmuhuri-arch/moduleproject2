@@ -1,92 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniVerse - Watch Anime</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AniVerse</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header>
-        <h1>AniVerse</h1>
-        <input 
-            type="text" 
-            id="searchInput" 
-            placeholder="Search anime (e.g. Naruto, One Piece)..." 
-            onkeypress="if(event.key === 'Enter') searchAnime(this.value.trim())">
-    </header>
-
-    <div class="container">
-
-        <!-- Top Anime -->
-        <h2>Top Anime</h2>
-        <div id="topGrid" class="grid"></div>
-
-        <!-- Recommended -->
-        <h2 style="margin-top: 60px;">Recommended For You</h2>
-        <div id="recGrid" class="grid"></div>
-
-        <!-- Search Results -->
-        <h2 id="searchTitle" style="margin-top: 60px; display: none;">Search Results</h2>
-        <div id="searchGrid" class="grid"></div>
-
-    </div>
-
-    <!-- Detail Modal -->
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <img id="modalImg" src="" alt="">
-            <div class="modal-body">
-                <h2 id="modalTitle"></h2>
-                <p id="modalInfo" class="modal-info"></p>
-                <p id="modalSynopsis" class="modal-synopsis"></p>
-
-                <div class="modal-buttons">
-                    <button onclick="watchAnime()">
-                        <i class="fa-solid fa-play"></i> Watch Now
-                    </button>
-                    <button onclick="downloadAnime()">
-                        <i class="fa-solid fa-download"></i> Download
-                    </button>
-                    <button onclick="addToWatchlist()">
-                        <i class="fa-solid fa-bookmark"></i> Watchlist
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Video Player Modal with Episode Selection -->
-    <div id="videoModal" class="modal" style="display: none;">
-        <div class="modal-content" style="max-width: 920px; width: 95%;">
-            <!-- Header -->
-            <div style="background:#0f172a; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #334155;">
-                <h3 id="videoTitle" style="margin:0; color:#c4d0ff; font-size: 18px;"></h3>
-                <button onclick="closeVideoModal()" 
-                        style="background:none; border:none; color:#94a3b8; font-size:28px; cursor:pointer;">×</button>
-            </div>
-
-            <!-- Episode Selector -->
-            <div style="background:#1e2937; padding: 12px 20px; border-bottom: 1px solid #334155; display: flex; gap: 10px; flex-wrap: wrap;" id="episodeList">
-                <!-- Episodes populated by JS -->
-            </div>
-
-            <!-- Video Player -->
-            <div style="position:relative; background:#000;">
-                <video id="animePlayer" controls autoplay style="width:100%; display:block;">
-                    Your browser does not support the video tag.
-                </video>
-                <div id="loadingOverlay" style="position:absolute; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; flex-direction:column;">
-                    <div style="width:40px; height:40px; border:5px solid #7c3aed; border-top-color:transparent; border-radius:50%; animation: spin 1s linear infinite;"></div>
-                    <p style="margin-top:15px; color:#94a3b8;">Loading episode...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-    <script src="script.js"></script>
+  <header>
+    <h1 onclick="loadTop()">AniVerse</h1>
+    <input id="q" placeholder="Search anime...">
+    <button onclick="search()">Search</button>
+  </header>
+  <nav class="filters">
+    <button onclick="loadTop()">Top</button>
+    <button onclick="loadAiring()">Airing</button>
+    <button onclick="loadUpcoming()">Upcoming</button>
+  </nav>
+  <main id="grid" class="grid"></main>
+  <div id="modal" class="modal" onclick="if(event.target===this)close()">
+    <div class="modal-content" id="modal-body"></div>
+  </div>
+  <script src="intro.js"></script>
 </body>
 </html>
